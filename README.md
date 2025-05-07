@@ -19,8 +19,8 @@ Application de gestion d'une Dahira (association religieuse).
 ![Capture d'écran 1](/images/Splash-screen.png)
 ![Capture d'écran 1](/images/Connexion.png)
 ![Capture d'écran 1](/images/Accueil-membre.png)
-![Capture d'écran 1](/images/Accueil-conférencier.png)
-![Capture d'écran 1](/images/Enrigistrement-conférence.png)
+![Capture d'écran 1](/images/Accueil-conferencier.png)
+![Capture d'écran 1](/images/Enrigistrement-conference.png)
 
 ## Installation
 ```bash
