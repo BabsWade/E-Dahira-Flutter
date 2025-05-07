@@ -2,15 +2,26 @@
 
 Application de gestion d'une Dahira (association religieuse).
 
-## Getting Started
+## Technologies utilisées
+- Flutter
+- Firebase (Firestore, Auth, Storage...)
+- Dart
 
-This project is a starting point for a Flutter application.
+## Fonctionnalités
+- Liste des audios de la Dahira
+- Lecture des audios
+- Enrigisement des audios
+- Authentification
+- Filtrer par : theme, chapitre, auteur
+- Recherche par mot clé
 
-A few resources to get you started if this is your first Flutter project:
+## Captures d'écran
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+```bash
+git clone https://github.com/BabsWade/E-Dahira-Flutter.git
+cd E-Dahira-Flutter
+flutter pub get
+flutter run
+```
