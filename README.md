@@ -16,7 +16,11 @@ Application de gestion d'une Dahira (association religieuse).
 - Recherche par mot clé
 
 ## Captures d'écran
-
+![Capture d'écran 1](/Users/mouhamadoumansour/Projets/E-DAHIRA/Medias/Splash-screen.png)
+![Capture d'écran 1](/Users/mouhamadoumansour/Projets/E-DAHIRA/Medias/Connexion.png)
+![Capture d'écran 1](/Users/mouhamadoumansour/Projets/E-DAHIRA/Medias/Accueil-membre.png)
+![Capture d'écran 1](/Users/mouhamadoumansour/Projets/E-DAHIRA/Medias/Accueil-conférencier.png)
+![Capture d'écran 1](/Users/mouhamadoumansour/Projets/E-DAHIRA/Medias/Enrigistrement-conférence.png)
 
 ## Installation
 ```bash
