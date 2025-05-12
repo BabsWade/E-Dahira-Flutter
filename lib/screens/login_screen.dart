@@ -12,6 +12,7 @@ class _LoginScreen extends State<LoginScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //backgroundColor: Color(0xffffffff),
       body: Padding(
         padding: EdgeInsets.all(20),
         child:Column(
@@ -29,7 +30,7 @@ class _LoginScreen extends State<LoginScreen>{
               decoration: InputDecoration(
                 labelText: "Email",
                 border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.email, color: Color(0xFF22763D)),
+                prefixIcon: Icon(Icons.email, color: Color(0xFF22763D)),
                 filled: true,
                 fillColor: Colors.white,
               ),
@@ -39,7 +40,7 @@ class _LoginScreen extends State<LoginScreen>{
               decoration: InputDecoration(
                 labelText: "Mot de passe",
                 border: OutlineInputBorder(),
-                suffixIcon: Icon(Icons.lock,color: Color(0xFF22763D),),
+                prefixIcon: Icon(Icons.lock,color: Color(0xFF22763D),),
                 filled: true,
                 fillColor: Colors.white,
               ),
