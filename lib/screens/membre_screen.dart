@@ -174,9 +174,35 @@ class _MembreScreenState extends State<MembreScreen> {
                 );
               },
             )
-
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xffCFE9D7),
+        selectedItemColor: Color(0xff22763D),
+        selectedLabelStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        unselectedItemColor: Colors.black,
+        unselectedFontSize: 15,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home,
+            color: Color(0xff22763D),),
+            label: "Accueil",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search,
+              color: Color(0xff22763D),),
+            label: "Tafsir",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person,
+              color: Color(0xff22763D),),
+            label: "Profil",
+          ),
+        ],
       ),
     );
   }
