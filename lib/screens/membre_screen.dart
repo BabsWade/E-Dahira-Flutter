@@ -13,6 +13,7 @@ class _MembreScreenState extends State<MembreScreen> {
   String? selectedValue;
   String? onSelected;
   List<String> items = ['Toutes', 'Hauteur', 'Theme', 'Chapitre'];
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +179,7 @@ class _MembreScreenState extends State<MembreScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
         backgroundColor: Color(0xffCFE9D7),
         selectedItemColor: Color(0xff22763D),
         selectedLabelStyle: TextStyle(
@@ -193,7 +195,7 @@ class _MembreScreenState extends State<MembreScreen> {
             label: "Accueil",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search,
+            icon: Icon(Icons.book,
               color: Color(0xff22763D),),
             label: "Tafsir",
           ),
