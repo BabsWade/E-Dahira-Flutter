@@ -8,6 +8,10 @@ class LoginScreen extends StatefulWidget{
 }
 
 class _LoginScreen extends State<LoginScreen>{
+  //requete http pour verifier si l'utilisateur existe
+  //si oui, on redirige vers la page membre
+  final String baseUrl = "https://127.0.0.1:8000/api/";
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +62,10 @@ class _LoginScreen extends State<LoginScreen>{
                   ),
                 ),
                 child: Text("Se connecter",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
             )
           ],
