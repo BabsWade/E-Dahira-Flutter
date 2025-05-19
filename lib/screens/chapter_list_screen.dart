@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:edahira/screens/chapter_detail_screen.dart';
 
 class ChapterListScreen extends StatelessWidget {
   final String themeName;
-  final List<Map<String, String>> waxtaanItems;
+  final List<Map<String, dynamic>> waxtaanItems;
 
   const ChapterListScreen({
     super.key,
@@ -24,25 +25,36 @@ class ChapterListScreen extends StatelessWidget {
         itemCount: waxtaanItems.length,
         itemBuilder: (context, index) {
           final item = waxtaanItems[index];
+
           return Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
             child: ListTile(
-              leading: Image.asset(item['image']!),
-              title: Text(item['title']!),
-              subtitle: Text(item['subtitle']!),
-              trailing: IconButton(
-                onPressed: () {
-                  // Action de lecture
-                },
-                icon: const Icon(
-                  Icons.play_circle_fill_outlined,
-                  color: Color(0xff22763D),
-                  size: 40,
-                ),
+              leading: Image.asset(item['image'] ?? 'assets/hadara.png'),
+              title: Text(item['title'] ?? 'Titre inconnu'),
+              subtitle: Text(item['subtitle'] ?? 'Auteur inconnu'),
+              trailing: const Icon(
+                Icons.chevron_right,
+                color: Color(0xff22763D),
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChapterDetailScreen(
+                      themeName: themeName,
+                      chapterTitle: item['title'] ?? '',
+                      author: item['subtitle'] ?? '',
+                      imagePath: item['image'] ?? '',
+                      sequences: List<Map<String, String>>.from(
+                        item['sequences'] ?? [],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           );
         },
