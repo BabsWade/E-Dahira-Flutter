@@ -1,40 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MembreScreen extends StatefulWidget {
-  const MembreScreen({Key? key}) : super(key: key);
+class MembreScreen extends StatelessWidget {
+  const MembreScreen({super.key});
 
-  @override
-  State<MembreScreen> createState() => _MembreScreenState();
-}
-
-class _MembreScreenState extends State<MembreScreen> {
-  String? selectedValue;
-  int _currentIndex = 0;
-
-  List<String> items = ['Toutes', 'Auteur', 'Theme', 'Chapitre'];
-
-  List<Map<String, String>> waxtaanItems = [
-    {
-      'title': 'Khilassou Zahab',
-      'subtitle': 'Oustaz Wade',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'Tafsir Joumou\'a',
-      'subtitle': 'Oustaz Ndiaye',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'Introduction à la Aqida',
-      'subtitle': 'Oustaz Ba',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'La Sira du Prophète',
-      'subtitle': 'Oustaz Diallo',
-      'image': 'assets/hadara.png',
-    },
+  final List<Map<String, String>> waxtaanItems = const [
     {
       'title': 'Khilassou Zahab',
       'subtitle': 'Oustaz Wade',
@@ -59,166 +28,89 @@ class _MembreScreenState extends State<MembreScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xffffffff),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        title: Text(
-          "Dalal ak jam",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Image.asset(
-              "assets/edahira-logo.png",
-              width: 30,
-              height: 60,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Card(
+            color: const Color(0xffCFE9D7),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
             ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                color: Color(0xffCFE9D7),
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Column(
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Image.asset("assets/edahira-logo.png", width: 50),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "Restez connecté à votre hadara",
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        "assets/edahira-logo.png",
-                        width: 50,
-                      ),
-                      Text(
-                        "Restez connecté à votre hadara",
-                        style: TextStyle(
-                          fontSize: 22,
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            "assets/hadara.png",
-                            height: 80,
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.play_circle_fill_outlined,
-                              size: 60,
-                              color: Color(0xff22763D),
-                            ),
-                          )
-                        ],
+                      Image.asset("assets/hadara.png", height: 80),
+                      const Icon(
+                        Icons.play_circle_fill_outlined,
+                        size: 60,
+                        color: Color(0xff22763D),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
-
-              SizedBox(height: 20),
-
-              /// Barre de recherche
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Recherche",
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Color(0xff22763D),
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(
+              hintText: "Recherche",
+              prefixIcon: const Icon(Icons.search, color: Color(0xff22763D)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-
-              SizedBox(height: 20),
-
-              /// Titre section
-              Text(
-                "Waxtaan",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            "Waxtaan",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: waxtaanItems.length,
+            itemBuilder: (context, index) {
+              final item = waxtaanItems[index];
+              return Card(
+                  elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-              SizedBox(height: 20),
-              /// Liste waxtaan
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: waxtaanItems.length,
-                itemBuilder: (context, index) {
-                  final item = waxtaanItems[index];
-                  return Card(
-                    color: Color(0xffffffff),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ListTile(
-                      leading: Image.asset(item['image']!),
-                      title: Text(item['title']!),
-                      subtitle: Text(item['subtitle']!),
-                      trailing: IconButton(
+                child: ListTile(
+                  
+                  leading: Image.asset(item['image']!),
+                  title: Text(item['title']!),
+                  subtitle: Text(item['subtitle']!),
+                 trailing: IconButton(
                         onPressed: () {},
                         icon: Icon(
                           Icons.play_circle_fill_outlined,
                           color: Color(0xff22763D),
                           size: 40,
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-
-      /// Navigation inférieure
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Color(0xffCFE9D7),
-        selectedItemColor: Color(0xff22763D),
-        selectedLabelStyle: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-        unselectedItemColor: Colors.black,
-        unselectedFontSize: 15,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color(0xff22763D)),
-            label: "Accueil",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book, color: Color(0xff22763D)),
-            label: "Thème",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Color(0xff22763D)),
-            label: "Profil",
+                      )
+                ),
+              );
+            },
           ),
         ],
       ),
     );
-
   }
 }
