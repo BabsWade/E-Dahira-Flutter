@@ -2,58 +2,35 @@ import 'package:flutter/material.dart';
 import 'chapter_list_screen.dart';
 
 class ThemeScreen extends StatelessWidget {
-  const ThemeScreen({super.key});
+   ThemeScreen({super.key});
 
-  final List<Map<String, dynamic>> themes = const [
+final List<Map<String, dynamic>> themes = [
+{
+  'name': 'Set',
+  'image': 'assets/hadara.png',
+  'chapters': [
     {
-      'name': 'Set',
+      'title': 'Les bases de Set',
+      'subtitle': 'Oustaz Wade',
       'image': 'assets/hadara.png',
-      'chapters': [
+      'sequences': [
         {
-          'title': 'Les bases de Set',
-          'subtitle': 'Oustaz Wade',
-          'image': 'assets/hadara.png',
+          'title': 'Séquence 1',
+          'subtitle': 'Introduction',
+          'audioUrl': 'http://127.0.0.1:8000/media/media/audio/Ame_Mbooloo_645_Latifou.m4a',
         },
         {
-          'title': 'Approfondissement',
-          'subtitle': 'Oustaz Wade',
-          'image': 'assets/hadara.png',
+          'title': 'Séquence 2',
+          'subtitle': 'Suite',
+          'audioUrl': 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
         },
-      ],
-    },
-    {
-      'name': 'Weurseug',
-      'image': 'assets/hadara.png',
-      'chapters': [
-        {
-          'title': 'Introduction Weurseug',
-          'subtitle': 'Oustaz Ndiaye',
-          'image': 'assets/hadara.png',
-        },
-        {
-          'title': 'Pratique avancée',
-          'subtitle': 'Oustaz Ndiaye',
-          'image': 'assets/hadara.png',
-        },
-      ],
-    },
-    {
-      'name': 'Seuy',
-      'image': 'assets/hadara.png',
-      'chapters': [
-        {
-          'title': 'Seuy élémentaire',
-          'subtitle': 'Oustaz Ba',
-          'image': 'assets/hadara.png',
-        },
-      ],
-    },
-    {
-      'name': 'Weer',
-      'image': 'assets/hadara.png',
-      'chapters': [],
-    },
-  ];
+      ]
+    }
+  ]
+}
+  // Autres thèmes...
+];
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +49,14 @@ class ThemeScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: ListTile(
-              contentPadding: EdgeInsets.zero,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChapterListScreen(
                       themeName: theme['name'],
-                      waxtaanItems:
-                          List<Map<String, String>>.from(theme['chapters']),
+                   waxtaanItems: List<Map<String, dynamic>>.from(theme['chapters']),
+
                     ),
                   ),
                 );
@@ -93,24 +69,17 @@ class ThemeScreen extends StatelessWidget {
               ),
               title: Text(
                 theme['name'],
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff22763D),
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xff22763D)),
               ),
               trailing: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xff22763D),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
-                  "${theme['chapters'].length} chapitres", // ✅ CORRIGÉ ICI
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  "${theme['chapters'].length} chapitres",
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

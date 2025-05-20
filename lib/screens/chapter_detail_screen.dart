@@ -53,13 +53,12 @@ class ChapterDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
+            // Liste des séquences
             const Text(
               "Séquences",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-
-            // 🔽 Liste des séquences avec lecteur audio
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -76,7 +75,7 @@ class ChapterDetailScreen extends StatelessWidget {
                     title: Text(sequence['title'] ?? 'Séquence'),
                     subtitle: Text(sequence['subtitle'] ?? ''),
                     trailing: AudioPlayerWidget(
-                      audioUrl: sequence['audio'] ?? '', // Assure-toi que "audio" est défini
+                      audioUrl: sequence['audioUrl'] ?? '',  // Utiliser le bon champ
                     ),
                   ),
                 );

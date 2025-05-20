@@ -1,6 +1,5 @@
-// lib/widgets/audio_player_widget.dart
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 class AudioPlayerWidget extends StatefulWidget {
   final String audioUrl;
@@ -44,7 +43,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
       icon: Icon(
         _isPlaying ? Icons.pause : Icons.play_arrow,
         size: 40,
-        color: const Color(0xff22763D),
+        color: Color(0xff22763D),
       ),
       onPressed: _togglePlayPause,
     );
