@@ -50,11 +50,12 @@ class _ProfilScreen extends State<ProfilScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 15),
             const ProfilInfoWidget(
               title: "Numéro téléphone",
               value: "221 77 876 76 56",
             ),
+            const SizedBox(height: 15),
             const ProfilInfoWidget(
               title: "Adresse email",
               value: "mndiaye@edahira.com",
