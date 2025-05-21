@@ -77,7 +77,7 @@ class MembreScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           const Text(
-            "Waxtaan",
+            "Les conférences les plus récentes",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
@@ -89,6 +89,7 @@ class MembreScreen extends StatelessWidget {
               final item = waxtaanItems[index];
               return Card(
                   elevation: 0,
+                color: const Color(0xffCFE9D7),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

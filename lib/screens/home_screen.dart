@@ -1,3 +1,4 @@
+import 'package:edahira/screens/profil_screen.dart';
 import 'package:flutter/material.dart';
 import 'membre_screen.dart';
 import 'theme_screen.dart';
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _screens = [
     const MembreScreen(),
     ThemeScreen(),
+    ProfilScreen(),
   ];
 
   final List<String> _titles = const [
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -51,9 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: const Color(0xffCFE9D7),
-        selectedItemColor: const Color(0xff22763D),
-        unselectedItemColor: Colors.black,
+        backgroundColor: const Color(0xff22763D),
+        selectedItemColor: const Color(0xffF5F5F5),
+        unselectedItemColor: Colors.white,
+        unselectedLabelStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
         selectedLabelStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
