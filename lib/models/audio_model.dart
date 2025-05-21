@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'membre_model.dart';
 
 class AudioModel {
-  final String theme ;
-  final String chapitre;
-  final String sequence;
+  final String theme;
+  final String? chapitre;
+  final String? sequence;
   final String audioFile;
   final String audioImage;
   final DateTime audioDate;
@@ -25,21 +25,12 @@ class AudioModel {
   factory AudioModel.fromJson(Map<String, dynamic> json) {
     return AudioModel(
       theme: json['theme'],
-      chapitre: json['chapitre'],
-      sequence: json['sequence'],
-      audioFile: json['audioFile'],
-      audioImage: json['audioImage'],
-      audioDate: DateTime.parse(json['audioDate']),
-      auteur: MembreModel(
-        prenom: json['auteur']['prenom'],
-        nom: json['auteur']['nom'],
-        telephone: json['auteur']['telephone'],
-        email: json['auteur']['email'],
-        ImageUrl: json['auteur']['ImageUrl'],
-        adresse: json['auteur']['adresse'],
-        role: json['auteur']['role'],
-        dahira: json['auteur']['dahira'],
-      ),
+      chapitre: json['chapitre'] ?? 'Sans Chapitre',
+      sequence: json['sequence'] ?? 'Sans sequence',
+      audioFile: json['audio_file'],
+      audioImage: json['image_audio'], // correction ici
+      audioDate: DateTime.parse(json['date_audio']),
+      auteur: MembreModel.fromJson(json['auteur']), // passer par fromJson de MembreModel
     );
   }
 
@@ -48,9 +39,9 @@ class AudioModel {
       'theme': theme,
       'chapitre': chapitre,
       'sequence': sequence,
-      'audioFile': audioFile,
-      'audioImage': audioImage,
-      'audioDate': audioDate.toIso8601String(),
+      'audio_file': audioFile,
+      'image_audio': audioImage,
+      'date_audio': audioDate.toIso8601String(),
       'auteur': auteur.toJson(),
     };
   }

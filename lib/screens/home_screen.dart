@@ -1,5 +1,7 @@
 import 'package:edahira/screens/profil_screen.dart';
 import 'package:flutter/material.dart';
+import '../models/audio_model.dart';
+import '../services/audio_service.dart';
 import 'membre_screen.dart';
 import 'theme_screen.dart';
 
