@@ -8,7 +8,7 @@ class AudioService {
     if (Platform.isAndroid) {
       return 'http://10.0.2.2:8000/api/audio/'; // émulateur Android
     } else if (Platform.isIOS) {
-      return 'http://192.168.1.6:8000/api/audio/'; // Ton IP locale pour iOS Simulator
+      return 'http://localhost:8000/api/audio/'; // Ton IP locale pour iOS Simulator
     } else {
       return 'http://localhost:8000/api/audio/'; // fallback
     }

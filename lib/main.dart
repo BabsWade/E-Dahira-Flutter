@@ -1,4 +1,5 @@
 import 'package:edahira/screens/home_screen.dart';
+import 'package:edahira/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFCFE9D7)),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),  // Assurez-vous que HomeScreen est passé ici
+      home: const LoginScreen(),  // Assurez-vous que HomeScreen est passé ici
     );
   }
 }
