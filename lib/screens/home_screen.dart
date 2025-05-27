@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.black,
           ),
         ),
+        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),

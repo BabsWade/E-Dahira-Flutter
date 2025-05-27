@@ -111,7 +111,7 @@ class _MembreScreen extends State<MembreScreen> {
                         contentPadding: const EdgeInsets.all(10),
                         leading: Image.asset('assets/hadara.png', width: 50),
                         title: Text(
-                          "${item.sequence.sequence?.isNotEmpty == true ? item.sequence.sequence! : item.theme.chapitre}",
+                          "${item.sequence.sequence?.isNotEmpty == true ? item.sequence.sequence! : item.chapitre.chapitre}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

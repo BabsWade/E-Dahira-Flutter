@@ -31,8 +31,12 @@ class AudioModel {
       audioImage: json['image_audio'], // correction ici
       audioDate: DateTime.parse(json['date_audio']),
       auteur: MembreModel.fromJson(json['auteur']), // passer par fromJson de MembreModel
-      chapitre: ChapitreModel.fromJson(json['chapitre']),
-      sequence: SequenceModel.fromJson(json['sequence']),
+      chapitre: json['chapitre'] != null
+          ? ChapitreModel.fromJson(json['chapitre'])
+          : ChapitreModel(chapitre: '', sequence: SequenceModel(sequence: '')),
+      sequence: json['sequence'] != null
+          ? SequenceModel.fromJson(json['sequence'])
+          : SequenceModel(sequence: ""),
       theme: ThemeModel.fromJson(json['theme']),
     );
   }
@@ -40,8 +44,8 @@ class AudioModel {
   Map<String, dynamic> toJson() {
     return {
       'theme': theme.toJson(),
-      'chapitre': chapitre.toJson(),
-      'sequence': sequence.toJson(),
+      'chapitre': chapitre != null ? chapitre.toJson():null,
+      'sequence': sequence != null ? sequence.toJson() : null,
       'audio_file': audioFile,
       'image_audio': audioImage,
       'date_audio': audioDate.toIso8601String(),

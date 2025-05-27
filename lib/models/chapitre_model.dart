@@ -12,14 +12,16 @@ class ChapitreModel{
   factory ChapitreModel.fromJson(Map<String, dynamic> json) {
     return ChapitreModel(
       chapitre: json['nom_chapitre'],
-      sequence: SequenceModel.fromJson(json['sequence']),
+      sequence: json['sequence'] != null
+          ? SequenceModel.fromJson(json['sequence'])
+          : SequenceModel(sequence: ''),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'nom_chapitre': chapitre,
-      'sequence': sequence.toJson(),
+      'sequence': sequence != null ? sequence.toJson():null,
     };
   }
 }
