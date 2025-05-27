@@ -93,7 +93,7 @@ class _MembreScreen extends State<MembreScreen> {
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: audios.length,
+                itemCount: audios.length > 20 ? 20 : audios.length,
                 itemBuilder: (context, index) {
                   final item = audios[index];
                   print("Audio URL: ${item.audioFile}");
