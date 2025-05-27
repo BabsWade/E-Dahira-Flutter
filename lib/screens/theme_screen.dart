@@ -1,8 +1,24 @@
 import 'package:flutter/material.dart';
+import '../models/audio_model.dart';
+import '../services/audio_service.dart';
 import 'chapter_list_screen.dart';
 
-class ThemeScreen extends StatelessWidget {
-   ThemeScreen({super.key});
+class ThemeScreen extends StatefulWidget {
+  const ThemeScreen({super.key});
+
+  @override
+  State<ThemeScreen> createState() => _ThemeScreen();
+}
+
+class _ThemeScreen extends State<ThemeScreen> {
+  // Ajout du chargement des audios
+  late Future<List<AudioModel>> futureAudios;
+
+  @override
+  void initState() {
+  super.initState();
+  futureAudios = AudioService.fetchAudios();
+  }
 
 final List<Map<String, dynamic>> themes = [
 {
@@ -55,7 +71,7 @@ final List<Map<String, dynamic>> themes = [
                   MaterialPageRoute(
                     builder: (context) => ChapterListScreen(
                       themeName: theme['name'],
-                   waxtaanItems: List<Map<String, dynamic>>.from(theme['chapters']),
+                      waxtaanItems: List<Map<String, dynamic>>.from(theme['chapters']),
 
                     ),
                   ),
@@ -87,5 +103,6 @@ final List<Map<String, dynamic>> themes = [
         );
       },
     );
+
   }
 }

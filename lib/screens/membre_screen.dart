@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import '../models/audio_model.dart';
 import '../services/audio_service.dart';
@@ -12,28 +10,6 @@ class MembreScreen extends StatefulWidget {
 }
 
 class _MembreScreen extends State<MembreScreen> {
-  final List<Map<String, String>> waxtaanItems = const [
-    {
-      'title': 'Khilassou Zahab',
-      'subtitle': 'Oustaz Wade',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'Tafsir Joumou\'a',
-      'subtitle': 'Oustaz Ndiaye',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'Introduction à la Aqida',
-      'subtitle': 'Oustaz Ba',
-      'image': 'assets/hadara.png',
-    },
-    {
-      'title': 'La Sira du Prophète',
-      'subtitle': 'Oustaz Diallo',
-      'image': 'assets/hadara.png',
-    },
-  ];
 
   // Ajout du chargement des audios
   late Future<List<AudioModel>> futureAudios;
@@ -100,6 +76,7 @@ class _MembreScreen extends State<MembreScreen> {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
+
           FutureBuilder<List<AudioModel>>(
             future: futureAudios,
             builder: (context, snapshot) {
@@ -134,7 +111,7 @@ class _MembreScreen extends State<MembreScreen> {
                         contentPadding: const EdgeInsets.all(10),
                         leading: Image.asset('assets/hadara.png', width: 50),
                         title: Text(
-                          "${item.sequence?.isNotEmpty == true ? item.sequence! : item.theme}",
+                          "${item.sequence.sequence?.isNotEmpty == true ? item.sequence.sequence! : item.theme.chapitre}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

@@ -6,21 +6,33 @@ import 'dart:io' show Platform;
 class AudioService {
   static String get apiUrl {
     if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8000/api/audio/'; // émulateur Android
+      return 'http://10.0.2.2:8000/api/audios/'; // émulateur Android
     } else if (Platform.isIOS) {
-      return 'http://localhost:8000/api/audio/'; // Ton IP locale pour iOS Simulator
+      return 'http://localhost:8000/api/audios/'; // Ton IP locale pour iOS Simulator
     } else {
-      return 'http://localhost:8000/api/audio/'; // fallback
+      return 'http://localhost:8000/api/audios/'; // fallback
     }
   }
   static Future<List<AudioModel>> fetchAudios() async {
-    final response = await http.get(Uri.parse(apiUrl));
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      final List<dynamic> results = data['results'];
-      return results.map((json) => AudioModel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to fetch audios');
+
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        final results = data['results'];
+        if (results == null || results is! List) {
+          throw Exception("Liste d'audios introuvable dans la réponse.");
+        }
+
+        return results.map((e) => AudioModel.fromJson(e)).toList();
+      } else {
+        throw Exception('Échec du chargement (${response.statusCode})');
+      }
+    } catch (e) {
+      print("Erreur fetchAudios : $e");
+      rethrow;
     }
   }
 }
