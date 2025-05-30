@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/profil_info_widget.dart';
+import 'logout.dart';
 
 class ProfilScreen extends StatefulWidget {
   const ProfilScreen({super.key});
@@ -60,7 +61,30 @@ class _ProfilScreen extends State<ProfilScreen> {
               title: "Adresse email",
               value: "mndiaye@edahira.com",
             ),
-
+            Card(
+              color: const Color(0xffffffff),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () async{
+                          await logout(context);
+                        },
+                        child: Text("Déconnexion",
+                            style: TextStyle(color: Colors.white, fontSize: 20)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF22763D),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                        )
+                        ),
+                    )
+                  ]
+                )
+            )
+            ),
           ],
         ),
       )
