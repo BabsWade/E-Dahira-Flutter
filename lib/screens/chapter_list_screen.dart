@@ -1,72 +1,72 @@
+// screens/chapitre_list_screen.dart
 import 'package:flutter/material.dart';
-import 'chapter_detail_screen.dart';
+import '../models/chapitre.dart';
+import '../services/chapitre_service.dart';
 
-class ChapterListScreen extends StatelessWidget {
+class ChapitreListScreen extends StatelessWidget {
+  final int themeId;
   final String themeName;
-final List<Map<String, dynamic>> waxtaanItems;
 
-
-  const ChapterListScreen({
-    super.key,
-    required this.themeName,
-    required this.waxtaanItems,
-  });
+  const ChapitreListScreen({super.key, required this.themeId, required this.themeName});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Chapitres : $themeName"),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
-      ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: waxtaanItems.length,
-        itemBuilder: (context, index) {
-          final item = waxtaanItems[index];
-          return Card(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ListTile(
-onTap: () {
-  final raw = item['sequences'];
-  final sequences = (raw != null && raw is List)
-      ? raw.map<Map<String, String>>((e) => Map<String, String>.from(e as Map)).toList()
-      : <Map<String, String>>[];
+      appBar: AppBar(title: Text('Chapitres de $themeName')),
+      body: FutureBuilder<List<ChapitreModel>>(
+        future: ChapitreService.fetchChapitresByTheme(themeId),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Erreur : ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('Aucun chapitre disponible.'));
+          }
 
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => ChapterDetailScreen(
-        themeName: themeName,
-        chapterTitle: item['title']!,
-        author: item['subtitle']!,
-        imagePath: item['image']!,
-        sequences: sequences,
-      ),
-    ),
-  );
-},
+          final chapitres = snapshot.data!;
 
-
-
-
-              leading: Image.asset(item['image']!),
-              title: Text(item['title']!),
-              subtitle: Text(item['subtitle']!),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.play_circle_fill_outlined,
-                  color: Color(0xff22763D),
-                  size: 40,
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: chapitres.length,
+            itemBuilder: (context, index) {
+              final chapitre = chapitres[index];
+              return Card(
+                color: const Color(0xffCFE9D7),
+                elevation: 0,
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ),
-            ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: ListTile(
+                    leading: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.green.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.book,
+                        color: Color(0xff22763D),
+                        size: 40,
+                      ),
+                    ),
+                    title: Text(
+                      chapitre.nomChapitre,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff22763D),
+                      ),
+                    ),
+                    // Optionnel : trailing bouton ou autre widget si besoin
+                    // trailing: ...
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

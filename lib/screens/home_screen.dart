@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/audio_model.dart';
 import '../services/audio_service.dart';
 import 'membre_screen.dart';
-import 'theme_screen.dart';
+import 'theme_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const MembreScreen(),
-    ThemeScreen(),
+    ThemeListScreen(),
     ProfilScreen(),
   ];
 

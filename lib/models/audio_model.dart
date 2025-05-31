@@ -11,7 +11,6 @@ class AudioModel {
   final MembreModel auteur;
   final ChapitreModel chapitre;
   final SequenceModel sequence;
-  final ThemeModel theme;
 
   AudioModel({
     required this.audioName,
@@ -21,36 +20,29 @@ class AudioModel {
     required this.auteur,
     required this.chapitre,
     required this.sequence,
-    required this.theme,
   });
 
   factory AudioModel.fromJson(Map<String, dynamic> json) {
     return AudioModel(
-      audioName: json['nom_audio'],
-      audioFile: json['audio_file'],
-      audioImage: json['image_audio'], // correction ici
-      audioDate: DateTime.parse(json['date_audio']),
-      auteur: MembreModel.fromJson(json['auteur']), // passer par fromJson de MembreModel
-      chapitre: json['chapitre'] != null
-          ? ChapitreModel.fromJson(json['chapitre'])
-          : ChapitreModel(chapitre: '', sequence: SequenceModel(sequence: '')),
-      sequence: json['sequence'] != null
-          ? SequenceModel.fromJson(json['sequence'])
-          : SequenceModel(sequence: ""),
-      theme: ThemeModel.fromJson(json['theme']),
+      audioName: json['nom_audio'] ?? '',
+      audioFile: json['audio_file'] ?? '',
+      audioImage: json['image_audio'] ?? '',
+      audioDate: DateTime.tryParse(json['date_audio'] ?? '') ?? DateTime.now(),
+      auteur: MembreModel.fromJson(json['auteur']),
+      chapitre: ChapitreModel.fromJson(json['chapitre']),
+      sequence: SequenceModel.fromJson(json['sequence']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'theme': theme.toJson(),
-      'chapitre': chapitre != null ? chapitre.toJson():null,
-      'sequence': sequence != null ? sequence.toJson() : null,
+      'nom_audio': audioName,
       'audio_file': audioFile,
       'image_audio': audioImage,
       'date_audio': audioDate.toIso8601String(),
       'auteur': auteur.toJson(),
-      'nom_audio': audioName,
+      'chapitre': chapitre.toJson(),
+      'sequence': sequence.toJson(),
     };
   }
 }

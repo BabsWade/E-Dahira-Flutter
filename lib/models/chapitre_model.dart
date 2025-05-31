@@ -1,27 +1,20 @@
-import 'package:edahira/models/sequence_model.dart';
+import 'sequence_model.dart';
 
-class ChapitreModel{
+class ChapitreModel {
   final String chapitre;
   final SequenceModel sequence;
 
-  ChapitreModel({
-    required this.chapitre,
-    required this.sequence,
-  });
+  ChapitreModel({required this.chapitre, required this.sequence});
 
   factory ChapitreModel.fromJson(Map<String, dynamic> json) {
     return ChapitreModel(
-      chapitre: json['nom_chapitre'],
-      sequence: json['sequence'] != null
-          ? SequenceModel.fromJson(json['sequence'])
-          : SequenceModel(sequence: ''),
+      chapitre: json['nom_chapitre'] ?? '',
+      sequence: SequenceModel.fromJson(json['sequence']),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'nom_chapitre': chapitre,
-      'sequence': sequence != null ? sequence.toJson():null,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'nom_chapitre': chapitre,
+        'sequence': sequence.toJson(),
+      };
 }

@@ -13,26 +13,29 @@ class AudioService {
       return 'http://localhost:8000/api/audios/'; // fallback
     }
   }
-  static Future<List<AudioModel>> fetchAudios() async {
+static Future<List<AudioModel>> fetchAudios() async {
+  try {
+    final response = await http.get(Uri.parse(apiUrl));
 
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final results = data['results'];
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-
-        final results = data['results'];
-        if (results == null || results is! List) {
-          throw Exception("Liste d'audios introuvable dans la réponse.");
-        }
-
-        return results.map((e) => AudioModel.fromJson(e)).toList();
-      } else {
-        throw Exception('Échec du chargement (${response.statusCode})');
+      if (results == null) {
+        throw Exception("Réponse API invalide : 'results' est null.");
       }
-    } catch (e) {
-      print("Erreur fetchAudios : $e");
-      rethrow;
+      if (results is! List) {
+        throw Exception("Le champ 'results' n'est pas une liste.");
+      }
+
+      return results.map((e) => AudioModel.fromJson(e)).toList();
+    } else {
+      throw Exception('Échec du chargement (${response.statusCode})');
     }
+  } catch (e) {
+    print("Erreur fetchAudios : $e");
+    rethrow;
   }
+}
+
 }
