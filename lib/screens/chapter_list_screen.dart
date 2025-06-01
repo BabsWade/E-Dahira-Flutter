@@ -1,13 +1,14 @@
-// screens/chapitre_list_screen.dart
 import 'package:flutter/material.dart';
-import '../models/chapitre.dart';
+import '../models/chapitre_model.dart';
 import '../services/chapitre_service.dart';
+import 'chapter_detail_screen.dart';
 
 class ChapitreListScreen extends StatelessWidget {
   final int themeId;
   final String themeName;
 
-  const ChapitreListScreen({super.key, required this.themeId, required this.themeName});
+  const ChapitreListScreen(
+      {super.key, required this.themeId, required this.themeName});
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +55,48 @@ class ChapitreListScreen extends StatelessWidget {
                         size: 40,
                       ),
                     ),
-                    title: Text(
-                      chapitre.nomChapitre,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff22763D),
-                      ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          chapitre.nomChapitre,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff22763D),
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          chapitre.auteur != null
+                              ? 'Auteur : ${chapitre.auteur!.fullName}'
+                              : 'Auteur inconnu',
+                          style: const TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ],
                     ),
-                    // Optionnel : trailing bouton ou autre widget si besoin
-                    // trailing: ...
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChapterDetailScreen(
+                            chapitreId: chapitre.id,
+                           themeName: chapitre.theme?.nomTheme ?? 'Thème inconnu', // ✅ Correction
+
+                            chapterTitle: chapitre.nomChapitre,
+                            auteurId: chapitre.auteur?.id ?? 0,
+                            authorName:
+                                chapitre.auteur?.fullName ?? 'Auteur inconnu',
+                            imagePath:
+                                "assets/hadara.png", // ou une image dynamique si tu as
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               );

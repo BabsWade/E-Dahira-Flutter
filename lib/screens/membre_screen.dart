@@ -17,7 +17,12 @@ class _MembreScreen extends State<MembreScreen> {
   @override
   void initState() {
     super.initState();
-    futureAudios = AudioService.fetchAudios();
+   futureAudios = AudioService.fetchAudios(
+  chapitreId: 1,
+  theme: 'Set',
+  auteurId: 1,
+);
+
   }
 
 
@@ -97,6 +102,7 @@ class _MembreScreen extends State<MembreScreen> {
                 itemBuilder: (context, index) {
                   final item = audios[index];
                   print("Audio URL: ${item.audioFile}");
+                  print("Audio URL: ${item.audioFile}");
 
                   return Container(
                     // ajuste selon  mes besoins
@@ -111,7 +117,7 @@ class _MembreScreen extends State<MembreScreen> {
                         contentPadding: const EdgeInsets.all(10),
                         leading: Image.asset('assets/hadara.png', width: 50),
                         title: Text(
-                          "${item.sequence.sequence?.isNotEmpty == true ? item.sequence.sequence! : item.chapitre.chapitre}",
+"${item.sequence.sequence?.isNotEmpty == true ? item.sequence.sequence! : item.chapitre.nomChapitre}",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,

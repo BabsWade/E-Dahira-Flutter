@@ -1,14 +1,20 @@
-// models/chapitre.dart
-class ChapitreModel {
-  final int id;
-  final String nomChapitre;
+import 'sequence_model.dart';
 
-  ChapitreModel({required this.id, required this.nomChapitre});
+class ChapitreModel {
+  final String chapitre;
+  final SequenceModel sequence;
+
+  ChapitreModel({required this.chapitre, required this.sequence});
 
   factory ChapitreModel.fromJson(Map<String, dynamic> json) {
     return ChapitreModel(
-      id: json['id'],
-      nomChapitre: json['nom_chapitre'],
+      chapitre: json['nom_chapitre'] ?? '',
+      sequence: SequenceModel.fromJson(json['sequence']),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'nom_chapitre': chapitre,
+        'sequence': sequence.toJson(),
+      };
 }

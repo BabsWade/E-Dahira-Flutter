@@ -1,20 +1,32 @@
-import 'sequence_model.dart';
+import 'auteur.dart';
+import 'theme_model.dart';
 
 class ChapitreModel {
-  final String chapitre;
-  final SequenceModel sequence;
+  final int id;
+  final String nomChapitre;
+  final Auteur? auteur;
+  final ThemeModel? theme;
 
-  ChapitreModel({required this.chapitre, required this.sequence});
+  ChapitreModel({
+    required this.id,
+    required this.nomChapitre,
+    this.auteur,
+    this.theme,
+  });
 
   factory ChapitreModel.fromJson(Map<String, dynamic> json) {
     return ChapitreModel(
-      chapitre: json['nom_chapitre'] ?? '',
-      sequence: SequenceModel.fromJson(json['sequence']),
+      id: json['id'] ?? 0,
+      nomChapitre: json['nom_chapitre'] ?? '',
+      auteur: json['auteur'] != null ? Auteur.fromJson(json['auteur']) : null,
+      theme: json['theme'] != null ? ThemeModel.fromJson(json['theme']) : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'nom_chapitre': chapitre,
-        'sequence': sequence.toJson(),
+        'id': id,
+        'nom_chapitre': nomChapitre,
+        if (auteur != null) 'auteur': auteur!.toJson(),
+        if (theme != null) 'theme': theme!.toJson(),
       };
 }

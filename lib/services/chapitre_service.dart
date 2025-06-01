@@ -1,7 +1,6 @@
-// services/api_service.dart (ajoute cette méthode)
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../models/chapitre.dart';
+import '../models/chapitre_model.dart';
 
 class ChapitreService {
   static const String baseUrl = 'http://10.0.2.2:8000/api/chapitres/';
