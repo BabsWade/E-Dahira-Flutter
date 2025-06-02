@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import '../models/audio_model.dart';
-import '../services/audio_service.dart';
 import '../widgets/audio_player_widgets.dart';
 
 class ChapterDetailScreen extends StatelessWidget {
-  final int chapitreId; // ✅ DOIT être défini
+  final int chapitreId;
   final String themeName;
   final String chapterTitle;
   final int auteurId;
   final String authorName;
   final String imagePath;
+  final List<AudioModel> audios;
 
   const ChapterDetailScreen({
     super.key,
@@ -19,16 +19,13 @@ class ChapterDetailScreen extends StatelessWidget {
     required this.auteurId,
     required this.authorName,
     required this.imagePath,
+    required this.audios,
   });
-
 
   @override
   Widget build(BuildContext context) {
-    final Future<List<AudioModel>> futureAudios = AudioService.fetchAudiosByChapitreThemeAuteur(
-      chapitreId: chapitreId,
-      theme: themeName,
-      auteurId: auteurId,
-    );
+    // Tri des audios par date
+    audios.sort((a, b) => a.audioDate.compareTo(b.audioDate));
 
     return Scaffold(
       appBar: AppBar(
@@ -76,61 +73,47 @@ class ChapterDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
 
-            FutureBuilder<List<AudioModel>>(
-              future: futureAudios,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (snapshot.hasError) {
-                  return Text('Erreur : ${snapshot.error}');
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Text('Aucun audio disponible pour ce chapitre.');
-                }
+            audios.isEmpty
+                ? const Text('Aucun audio disponible pour ce chapitre.')
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: audios.length,
+                    itemBuilder: (context, index) {
+                      final item = audios[index];
 
-                final audios = snapshot.data!;
-audios.sort((a, b) => a.audioDate.compareTo(b.audioDate));
-
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: audios.length,
-                  itemBuilder: (context, index) {
-                    final item = audios[index];
-
-                    return Card(
-                      elevation: 0,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: const Color(0xffCFE9D7),
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.all(10),
-                        leading: Image.asset('assets/hadara.png', width: 50),
-                        title: Text(
-                          item.sequence.sequence?.isNotEmpty == true
-                              ? item.sequence.sequence!
-                              : item.chapitre.nomChapitre,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                      return Card(
+                        elevation: 0,
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: const Color(0xffCFE9D7),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.all(10),
+                          leading: Image.asset('assets/hadara.png', width: 50),
+                          title: Text(
+                            item.sequence.sequence?.isNotEmpty == true
+                                ? item.sequence.sequence!
+                                : item.chapitre.nomChapitre,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                          subtitle: Text(
+                            "${item.auteur.prenom} ${item.auteur.nom}",
+                            style: const TextStyle(fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: SimpleAudioPlayer(audioUrl: item.audioFile),
                         ),
-                        subtitle: Text(
-                          "${item.auteur.prenom} ${item.auteur.nom}",
-                          style: const TextStyle(fontSize: 16),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        trailing: SimpleAudioPlayer(audioUrl: item.audioFile),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+                      );
+                    },
+                  ),
           ],
         ),
       ),

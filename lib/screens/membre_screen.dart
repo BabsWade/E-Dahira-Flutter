@@ -15,15 +15,11 @@ class _MembreScreen extends State<MembreScreen> {
   late Future<List<AudioModel>> futureAudios;
 
   @override
-  void initState() {
-    super.initState();
-   futureAudios = AudioService.fetchAudios(
-  chapitreId: 1,
-  theme: 'Set',
-  auteurId: 1,
-);
+void initState() {
+  super.initState();
+  futureAudios = AudioService.fetchAudios(); // ✅ pas de filtres ici
+}
 
-  }
 
 
   @override

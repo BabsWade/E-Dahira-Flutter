@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/chapitre_model.dart';
+import '../services/audio_service.dart';
 import '../services/chapitre_service.dart';
 import 'chapter_detail_screen.dart';
 
@@ -79,20 +80,28 @@ class ChapitreListScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ChapterDetailScreen(
-                            chapitreId: chapitre.id,
-                           themeName: chapitre.theme?.nomTheme ?? 'Thème inconnu', // ✅ Correction
+             onTap: () async {
+  final auteurId = chapitre.auteur?.id ?? 0;
+  final themeName = chapitre.theme?.nomTheme ?? '';
 
-                            chapterTitle: chapitre.nomChapitre,
-                            auteurId: chapitre.auteur?.id ?? 0,
-                            authorName:
-                                chapitre.auteur?.fullName ?? 'Auteur inconnu',
-                            imagePath:
-                                "assets/hadara.png", // ou une image dynamique si tu as
+  // Appel API pour récupérer les audios
+  final audios = await AudioService.fetchAudios(
+    chapitreId: chapitre.id,
+    theme: themeName,
+    auteurId: auteurId,
+  );
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ChapterDetailScreen(
+        chapitreId: chapitre.id,
+        themeName: themeName,
+        chapterTitle: chapitre.nomChapitre,
+        auteurId: auteurId,
+        authorName: chapitre.auteur?.fullName ?? 'Auteur inconnu',
+        imagePath: "assets/hadara.png",
+        audios: audios, // ✅ ici on passe la liste récupérée
                           ),
                         ),
                       );
@@ -107,3 +116,4 @@ class ChapitreListScreen extends StatelessWidget {
     );
   }
 }
+  

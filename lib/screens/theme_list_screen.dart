@@ -9,7 +9,7 @@ class ThemeListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Liste des Thèmes')),
+     
       body: FutureBuilder<List<ThemeModel>>(
         future: ApiService.fetchThemes(),
         builder: (context, snapshot) {
