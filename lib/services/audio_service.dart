@@ -6,33 +6,40 @@ import 'dart:io' show Platform;
 class AudioService {
   static String get apiUrl {
     if (Platform.isAndroid) {
-      return 'http://10.0.2.2:8000/api/audios/'; // émulateur Android
+      return 'http://10.0.2.2:8000/api/audios/'; // Émulateur Android
     } else if (Platform.isIOS) {
-      return 'http://localhost:8000/api/audios/'; // Ton IP locale pour iOS Simulator
+      return 'http://localhost:8000/api/audios/'; // iOS Simulator
     } else {
-      return 'http://localhost:8000/api/audios/'; // fallback
+      return 'http://localhost:8000/api/audios/'; // Fallback
     }
   }
-  static Future<List<AudioModel>> fetchAudios() async {
 
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
+  /// Méthode générique qui prend les filtres optionnels
+  static Future<List<AudioModel>> fetchAudios({
+    int? chapitreId,
+    String? theme,
+    int? auteurId,
+  }) async {
+    final queryParams = <String>[];
+    if (chapitreId != null) queryParams.add('chapitre=$chapitreId');
+    if (theme != null && theme.isNotEmpty) queryParams.add('theme=$theme');
+    if (auteurId != null) queryParams.add('auteur=$auteurId');
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+    final url = Uri.parse(
+      queryParams.isEmpty ? apiUrl : '$apiUrl?${queryParams.join('&')}',
+    );
 
-        final results = data['results'];
-        if (results == null || results is! List) {
-          throw Exception("Liste d'audios introuvable dans la réponse.");
-        }
+    final response = await http.get(url);
 
-        return results.map((e) => AudioModel.fromJson(e)).toList();
-      } else {
-        throw Exception('Échec du chargement (${response.statusCode})');
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final results = data['results'];
+      if (results == null || results is! List) {
+        throw Exception("Le champ 'results' est invalide.");
       }
-    } catch (e) {
-      print("Erreur fetchAudios : $e");
-      rethrow;
+      return results.map<AudioModel>((e) => AudioModel.fromJson(e)).toList();
+    } else {
+      throw Exception('Erreur API : ${response.statusCode}');
     }
   }
 }

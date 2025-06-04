@@ -1,25 +1,18 @@
-import 'chapitre_model.dart';
-
 class ThemeModel {
-  final String theme;
-  final ChapitreModel chapitre;
+  final int id;
+  final String nomTheme;
 
-  ThemeModel({
-    required this.theme,
-    required this.chapitre,
-  });
+  ThemeModel({required this.id, required this.nomTheme});
 
   factory ThemeModel.fromJson(Map<String, dynamic> json) {
     return ThemeModel(
-      theme: json['nom_theme'],
-      chapitre: ChapitreModel.fromJson(json['chapitre']),
+      id: json['id'] ?? 0,
+      nomTheme: json['nom_theme'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'nom_theme': theme,
-      'chapitre': chapitre.toJson(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nom_theme': nomTheme,
+      };
 }
