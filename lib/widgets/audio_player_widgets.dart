@@ -1,5 +1,6 @@
+// simple_audio_player.dart
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:edahira/services/audio_manager.dart';
 
 class SimpleAudioPlayer extends StatefulWidget {
   final String audioUrl;
@@ -10,44 +11,40 @@ class SimpleAudioPlayer extends StatefulWidget {
 }
 
 class _SimpleAudioPlayerState extends State<SimpleAudioPlayer> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   bool _isPlaying = false;
+  final _audioManager = AudioManager();
 
   @override
   void initState() {
     super.initState();
-    _audioPlayer.onPlayerComplete.listen((event) {
-      setState(() => _isPlaying = false);
+    _audioManager.addListener(_onAudioChanged);
+    _isPlaying = _audioManager.currentUrl == widget.audioUrl;
+  }
+
+  void _onAudioChanged(String? currentUrl) {
+    setState(() {
+      _isPlaying = currentUrl == widget.audioUrl;
     });
   }
 
   @override
   void dispose() {
-    _audioPlayer.dispose();
+    _audioManager.removeListener(_onAudioChanged);
     super.dispose();
   }
 
   Future<void> _togglePlayPause() async {
-    if (_isPlaying) {
-      await _audioPlayer.pause();
-      setState(() => _isPlaying = false);
-    } else {
-      try {
-        await _audioPlayer.play(UrlSource(widget.audioUrl));
-        setState(() => _isPlaying = true);
-      } catch (e) {
-        debugPrint('Erreur lecture audio : $e');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Erreur lecture audio : $e')),
-        );
-      }
-    }
+    await _audioManager.play(widget.audioUrl);
   }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(_isPlaying ? Icons.pause_circle : Icons.play_circle, size: 40, color: Color(0xff22763D),),
+      icon: Icon(
+        _isPlaying ? Icons.pause_circle : Icons.play_circle,
+        size: 40,
+        color: const Color(0xff22763D),
+      ),
       onPressed: _togglePlayPause,
     );
   }

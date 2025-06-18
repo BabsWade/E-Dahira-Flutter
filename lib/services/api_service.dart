@@ -9,8 +9,8 @@ class ApiService {
     final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {
-     final Map<String, dynamic> jsonData = json.decode(response.body);
-final List<dynamic> data = jsonData['results'];
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+      final List<dynamic> data = jsonData['results'];
 
       return data.map((item) => ThemeModel.fromJson(item)).toList();
     } else {
