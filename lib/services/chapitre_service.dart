@@ -15,7 +15,7 @@ class ChapitreService {
   if (response.statusCode == 200) {
     final decoded = jsonDecode(response.body);
 
-    // ✅ On récupère la liste depuis "results"
+    //   On récupère la liste depuis "results"
     final List<dynamic> results = decoded['results'] ?? [];
 
     return results.map((e) => ChapitreModel.fromJson(e)).toList();

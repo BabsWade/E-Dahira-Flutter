@@ -101,7 +101,7 @@ class ChapitreListScreen extends StatelessWidget {
         auteurId: auteurId,
         authorName: chapitre.auteur?.fullName ?? 'Auteur inconnu',
         imagePath: "assets/hadara.png",
-        audios: audios, // ✅ ici on passe la liste récupérée
+        audios: audios, //   ici on passe la liste récupérée
                           ),
                         ),
                       );
