@@ -1,9 +1,15 @@
-import 'package:edahira/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'services/audio_player_service.dart';
+import 'screens/login_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => AudioPlayerService(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFCFE9D7)),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),  // Assurez-vous que HomeScreen est passé ici
+      home: const LoginScreen(),
     );
   }
 }

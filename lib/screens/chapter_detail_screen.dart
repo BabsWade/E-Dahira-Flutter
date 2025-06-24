@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/audio_model.dart';
 import '../widgets/audio_player_widgets.dart';
+import 'audio_player_screen.dart';
 
 class ChapterDetailScreen extends StatelessWidget {
   final int chapitreId;
@@ -90,6 +91,18 @@ class ChapterDetailScreen extends StatelessWidget {
                         ),
                         color: const Color(0xffCFE9D7),
                         child: ListTile(
+                          onTap: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => AudioPlayerScreen(
+        audio: item,
+        chapterImage: imagePath,
+      ),
+    ),
+  );
+},
+
                           contentPadding: const EdgeInsets.all(10),
                           leading: Image.asset('assets/hadara.png', width: 50),
                           title: Text(
